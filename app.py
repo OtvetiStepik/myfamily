@@ -1,13 +1,25 @@
 #taskkill /f /im python.exe
 
+import datetime
+import sqlite3
+
 
 from flask import Flask, render_template, flash, redirect, session, url_for, request, abort
 from forms import LoginForm
-
+import os
 from config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)
+app.config.update(dict(DATABASE=os.path.join(app.root_path,'fdb.db')))
+app.pergament_session_lifetime = datetime.timedelta(seconds=60)
+
+
+def connect_db():
+    conn = sqlite3.connect(app.config['DATABASE'])
+    conn.row_factory = sqlite3.Row
+    return conn
+
 
 
 @app.route('/kuku')
