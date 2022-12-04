@@ -56,12 +56,12 @@ if __name__ == '__main__':
 
     db = FDataBase(db)
     #print(db.addMenu('Главная','index'))
-    #print(db.addMenu('Регистрация', 'login2'))
+    print(db.addMenu('Регистрация2', 'login'))
     #print(db.addMenu('Неизвестная страница', 'page404'))
     #print(db.addMenu('Ошибка при регистрации', 'errlog'))
     #print(db.addMenu('База', 'base'))
 
     #print(db.addMenu('Регистрация', 'login_2var'))
-    print(db.delMenu(32))
+    #print(db.delMenu(32))
 
 

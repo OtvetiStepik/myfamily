@@ -74,19 +74,10 @@ def index():  # put application's code here
     return render_template('index.html',menu=database.getMenu())
 
 
-@app.route('/petya/')
-def petya():  # put application's code here
-    return ''' <h2> Александр Твардовский
-
-Василий Теркин. Сборник
-
-Лирика
-
-РОДНОЕ
-
-<br>Дорог израненные спины, </br>
-<br>О дальних шумных городах. </br>
-    </h2> '''
+@app.route('/p')
+def p():
+    # put application's code here
+    return render_template('p.html')
 
 
 # @app.route('/user/<username>')
