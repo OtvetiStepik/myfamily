@@ -1,24 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+
+
+
+
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <style type="text/css">
-
-body {
-background-color: #000000
-}
-<body>
-
-  </style>
+<title></title>
+<script type="text/javascript">
+window.onload = function() {
+    var button = document.getElementById('input_button_bg_change');
+    var body = document.getElementsByTagName('body')[0];
+    var colors = ['black', 'white'];
+    button.onclick = function() {
+        body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    };
+};
+</script>
 </head>
 <body>
-<button type="button" name="turn_off">
-  <img src="C:\Users\КВАНТОРИУМ\Downloads\OZt0TSne.jpeg" alt="" title="" width="40" height="40">
-
-
-
-
-</button>
+    <input type="button" id="input_button_bg_change" value="Change background color"/>
 </body>
 </html>
