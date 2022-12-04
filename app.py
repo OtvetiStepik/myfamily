@@ -4,7 +4,9 @@ import datetime
 import sqlite3
 
 
-from flask import Flask, render_template, flash, redirect, session, url_for, request, abort
+from flask import Flask, render_template, flash, redirect, session, url_for, request, abort, g
+
+from fdatabase import FDataBase
 from forms import LoginForm
 import os
 from config import Config
@@ -19,6 +21,15 @@ def connect_db():
     conn = sqlite3.connect(app.config['DATABASE'])
     conn.row_factory = sqlite3.Row
     return conn
+def get_db():
+    if not  hasattr(g,'link_db'):
+        g.link_db = connect_db()
+        return g.link_db
+
+@app.teardown_appcontext
+def close_db(error):
+    if hasattr(g,'link_db'):
+        g.link_db.close()
 
 
 
@@ -43,27 +54,8 @@ def login2():
         return redirect(url_for('profile',username=session['userlogged']))
     elif request.method == 'POST' and request.form['username'] == 'kolya' and request.form['psw'] == '111':
         session['userlogged'] = request.form['username']
-        return redirect(url_for('profile',username=session['userlogged']))
-    elif request.method == 'POST' and request.form['username'] == 'vasya' and request.form['psw'] == '112':
-        session['userlogged'] = request.form['username']
-        return redirect(url_for('profile',username=session['userlogged']))
-    elif request.method == 'POST' and request.form['username'] == 'tolya' and request.form['psw'] == '113':
-        session['userlogged'] = request.form['username']
-        return redirect(url_for('profile',username=session['userlogged']))
-    elif request.method == 'POST' and request.form['username'] == 'igor' and request.form['psw'] == '114':
-        session['userlogged'] = request.form['username']
-        return redirect(url_for('profile',username=session['userlogged']))
-    elif request.method == 'POST' and request.form['username'] == 'maks' and request.form['psw'] == '115':
-        session['userlogged'] = request.form['username']
-        return redirect(url_for('profile',username=session['userlogged']))
-    elif request.method == 'POST' and request.form['username'] == 'og buda' and request.form['psw'] == '111':
-        session['userlogged'] = request.form['username']
-        return redirect(url_for('profile',username=session['userlogged']))
-
-
-
-
     return render_template('login_2var.html', title='Авторизация пользователя')
+
 
 @app.route('/profile/<username>')
 def profile(username):
@@ -75,9 +67,11 @@ def profile(username):
 @app.route('/')
 @app.route('/index')
 def index():  # put application's code here
+    db = get_db()
+    database = FDataBase(db)
 
 
-    return render_template('index.html')
+    return render_template('index.html',menu=database.getMenu())
 
 
 @app.route('/petya/')

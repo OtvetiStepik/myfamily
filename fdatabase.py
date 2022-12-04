@@ -1,6 +1,6 @@
 import sqlite3
 
-from app import app, connect_db
+
 
 
 def create_db():
@@ -28,28 +28,40 @@ class FDataBase:
         return True
     def addMenu(self,title,url):
         try:
-            if id == 0:
-                self.__cur.execute(f"INSERT INTO POST VALUES(null,?,?)", (title, url))
-            else:
-                self.__db.commit()
-            except sqlite3.Error as e:
+            self.__cur.execute(f"INSERT INTO MAINMENU VALUES(null,?,?)", (title, url))
+            self.__db.commit()
+        except sqlite3.Error as e:
             print('Ошибка добавления в базу данных', str(e))
             return False
         return True
+
+    def getMenu(self):
+        try:
+            sql = """SELECT * FROM mainmenu"""
+            self.__cur.execute(sql)
+            res = self.__cur.fetchall()
+            if res: return res
+        except:
+            print('Ошибка добавления в базу данных')
+            return []
+
+
 
 
 
 
 if __name__ == '__main__':
-    print(create_db.__doc__)
+    from app import app, connect_db
     db = connect_db()
+
     db = FDataBase(db)
-    print(db.addMenu('Главная','index'))
-    #print(db.addMenu('Регистрация', 'login_2var'))
+    #print(db.addMenu('Главная','index'))
+    #print(db.addMenu('Регистрация', 'login2'))
     #print(db.addMenu('Неизвестная страница', 'page404'))
     #print(db.addMenu('Ошибка при регистрации', 'errlog'))
     #print(db.addMenu('База', 'base'))
+
     #print(db.addMenu('Регистрация', 'login_2var'))
-    #print(db.delMenu(0))
+    print(db.delMenu(32))
 
 
