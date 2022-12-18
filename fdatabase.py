@@ -1,6 +1,6 @@
+import math
 import sqlite3
-
-
+import time
 
 
 def create_db():
@@ -45,6 +45,29 @@ class FDataBase:
             print('Ошибка добавления в базу данных')
             return []
 
+    def addPost(self, title, text):
+        try:
+            tm = math.floor(time.time())
+            self.__cur.execute("INSERT INTO posts VALUES (NULL,?,?,?)", (title, text, tm))
+            self.__db.commit()
+        except sqlite3.Error as e:
+            print("ТЫ ДУРАК",str(e))
+            return False
+        return True
+
+    def delPost(self, id=0):
+        try:
+            if id == 0:
+                 self.__cur.execute(f"DELETE FROM posts ")
+            else:
+                 self.__cur.execute(f"DELETE FROM posts WHERE id=={id}")
+            self.__db.commit()
+        except sqlite3.Error as e:
+            print('Ошибка удаления в базу данных',str(e))
+            return False
+        return True
+
+
 
 
 
@@ -56,12 +79,12 @@ if __name__ == '__main__':
 
     db = FDataBase(db)
     #print(db.addMenu('Главная','index'))
-    print(db.addMenu('Регистрация2', 'login'))
+    #print(db.addMenu('Регистрация2', 'login'))
     #print(db.addMenu('Неизвестная страница', 'page404'))
     #print(db.addMenu('Ошибка при регистрации', 'errlog'))
     #print(db.addMenu('База', 'base'))
 
-    #print(db.addMenu('Регистрация', 'login_2var'))
-    #print(db.delMenu(32))
-
+    #print(db.addMenu('Пост', 'post'))
+    print(db.delPost(0))
+    #create_db()
 

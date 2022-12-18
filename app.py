@@ -39,22 +39,44 @@ def hi():  # put application's code here
 
 
 @app.route('/login', methods=['GET', 'POST'])
-def login():  # put application's code here
+def login():
+    db = get_db()
+    database = FDataBase(db)
+    # put application's code here
     form = LoginForm()
     print(form.validate_on_submit())
     if form.validate_on_submit():
         flash(f"Зашел пользователь под логином {form.username.data}, запомнить = {form.remember_me.data}")
         return redirect('/index')
 
-    return render_template('login.html', title='Авторизация пользователя', form=form)
+    return render_template('login.html', title='Авторизация пользователя', form=form,menu=database.getMenu())
 
 @app.route('/login2',methods=['POST','GET'])
 def login2():
+    db = get_db()
+    database = FDataBase(db)
     if 'userlogged' in session:
         return redirect(url_for('profile',username=session['userlogged']))
     elif request.method == 'POST' and request.form['username'] == 'kolya' and request.form['psw'] == '111':
         session['userlogged'] = request.form['username']
-    return render_template('login_2var.html', title='Авторизация пользователя')
+    return render_template('login_2var.html', title='Авторизация пользователя',menu=database.getMenu())
+
+
+@app.route('/post', methods=['POST', 'GET'])
+def post():
+    db = get_db()
+    database = FDataBase(db)
+    if request.method == 'POST':
+        if len(request.form['name']) > 3 and len(request.form['post']) > 10:
+            res = database.addPost(request.form['name'], request.form['post'])
+            if not res:
+                flash('Ты дурак', category='error')
+            else:
+                flash('Ты не дурак', category='success')
+        else:
+            flash('Ты полный дурак', category='error')
+
+    return render_template('post.html', title='Добавить статью', menu=database.getMenu())
 
 
 @app.route('/profile/<username>')
