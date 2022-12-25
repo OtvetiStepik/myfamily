@@ -55,6 +55,29 @@ class FDataBase:
             return False
         return True
 
+
+    def getPost(self, postid):
+        try:
+            self.__cur.execute(f"SELECT title, text FROM posts WHERE id = {postid} LIMIT 1")
+            res = self.__cur.fetchone()
+            if res: return  res
+        except sqlite3.Error as e:
+            print("Ошибка" + str(e))
+        return(False,False)
+
+
+
+
+
+    def getPostsAnnonce(self):
+        try:
+            self.__cur.execute(f"SELECT id, title, text FROM posts ORDER BY time DESC")
+            res = self.__cur.fetchall()
+            if res: return res
+        except sqlite3.Error as e:
+            print("Повторите попытку"+ str(e))
+        return[]
+
     def delPost(self, id=0):
         try:
             if id == 0:
@@ -78,13 +101,13 @@ if __name__ == '__main__':
     db = connect_db()
 
     db = FDataBase(db)
-    #print(db.addMenu('Главная','index'))
+    #print(db.addMenu('Все посты','allposts'))
     #print(db.addMenu('Регистрация2', 'login'))
     #print(db.addMenu('Неизвестная страница', 'page404'))
     #print(db.addMenu('Ошибка при регистрации', 'errlog'))
     #print(db.addMenu('База', 'base'))
 
-    #print(db.addMenu('Пост', 'post'))
-    print(db.delPost(0))
+    #print(db.addMenu('Все посты', 'Allposts'))
+    print(db.delPost(20))
     #create_db()
 

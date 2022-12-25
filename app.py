@@ -96,6 +96,27 @@ def index():  # put application's code here
     return render_template('index.html',menu=database.getMenu())
 
 
+@app.route('/allposts')
+def allposts():  # put application's code here
+    db = get_db()
+    database = FDataBase(db)
+    return render_template('allposts.html', title='Список постов', menu=database.getMenu(),
+                           posts=database.getPostsAnnonce())
+
+
+
+@app.route('/post/<int:id_post>')
+def showPosts(id_post):  # put application's code here
+    db = get_db()
+    database = FDataBase(db)
+    title, aticle = database.getPost(id_post)
+    if not title:
+        abort(404)
+
+    return render_template('aticle.html', title='Список постов', menu=database.getMenu(),
+                           post=aticle)
+
+
 @app.route('/p')
 def p():
     # put application's code here
