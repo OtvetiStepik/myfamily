@@ -91,6 +91,8 @@ def profile(username):
 def index():  # put application's code here
     db = get_db()
     database = FDataBase(db)
+    titanic = {'name': ('k',
+    'https://news.store.rambler.ru/img/e715c07713a2e2bc5b7955651a9b3bc9?img-format=auto&img-1-resize=height:315,fit:max&img-2-filter=sharpen')}
 
 
     return render_template('index.html',menu=database.getMenu())
@@ -113,7 +115,7 @@ def showPosts(id_post):  # put application's code here
     if not title:
         abort(404)
 
-    return render_template('aticle.html', title='Список постов', menu=database.getMenu(),
+    return render_template('aticle.html', title='title', menu=database.getMenu(),
                            post=aticle)
 
 
