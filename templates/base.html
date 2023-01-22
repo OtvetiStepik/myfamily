@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="shortcut icon" href="/C:\Users\КВАНТОРИУМ\Downloads\imgonline-com-ua-favicon-5gRlD0XW8PJy.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <meta charset="UTF-8">
     <link type="text/css" href="{{url_for('static',filename='css/style.css')}}" rel="stylesheet">
+ <link rel="shortcut icon" href="{{url_for('static',filename='img/favicon.ico')}}">
+
     {% if title %}
     <title>kvantorium</title>
     {% else%}
@@ -15,15 +16,17 @@
 
 {% block content %}
              {% block mainmenu -%}
+<div> <img src="{{url_for('static',filename='img/favicon.ico')}}" width="60" height="60">
          <ul class="mainmenu">
              {% for m in menu -%}
              <li><a href="{{url_for(m.url)}}">{{m.title}}</a></li>
+
          {% endfor -%}
 
          </ul>
 
               {% endblock mainmenu -%}
-
+</div>
 <hr>
 {% with messages = get_flashed_messages() %}
 {% if messages %}

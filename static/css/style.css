@@ -26,3 +26,7 @@ ul.mainmenu a:hover {color:#ffffff;}
 .flash.error { border: 1px solid #FF4334; background:#FF4334;}
 .form-contact {padding:15px;}
 .form-contact textarea {margin:15px;}
+div {
+  display: flex;
+  flex-direction: row;
+}
