@@ -3,7 +3,7 @@
 import datetime
 import sqlite3
 
-
+import git
 from flask import Flask, render_template, flash, redirect, session, url_for, request, abort, g
 
 from fdatabase import FDataBase
@@ -36,6 +36,17 @@ def close_db(error):
 @app.route('/kuku')
 def hi():  # put application's code here
     return 'sdfsdf!'
+
+@app.route('/update_server, method', method=['POST','GET']
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('/home/OtvetiStepik/operagx')
+        origin = repo.remotes.origin
+        origin.pull()
+        return 'Сайт обновился', 200
+    else:
+        return 'Возникла ошибка', 400
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
