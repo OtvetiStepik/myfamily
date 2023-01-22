@@ -37,7 +37,7 @@ def close_db(error):
 def hi():  # put application's code here
     return 'sdfsdf!'
 
-@app.route('/update_server, method', method=['POST','GET']
+@app.route('/update_server, method', method=['POST','GET'])
 def webhook():
     if request.method == 'POST':
         repo = git.Repo('/home/OtvetiStepik/operagx')
