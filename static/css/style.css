@@ -29,4 +29,5 @@ ul.mainmenu a:hover {color:#ffffff;}
 div {
   display: flex;
   flex-direction: row;
+  background: #2b2525;
 }
