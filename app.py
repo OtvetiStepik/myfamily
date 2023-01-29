@@ -40,7 +40,7 @@ def hi():  # put application's code here
 @app.route('/update_server', methods=['POST', 'GET'])#hello
 def webhook():
     if request.method == 'POST':
-        repo = git.Repo('/home/Vladislav32')
+        repo = git.Repo('/home/what/operagx')
         origin = repo.remotes.origin
         origin.pull()
         return 'Сайт обновился', 200
