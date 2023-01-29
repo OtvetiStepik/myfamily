@@ -34,7 +34,7 @@ def close_db(error):
 
 
 @app.route('/kuku1')
-def hi():  # put application's code here
+def kuku1():  # put application's code here
     return 'sdfsdf!'
 
 @app.route('/update_server', methods=['POST', 'GET'])#hello
