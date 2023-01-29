@@ -36,6 +36,10 @@ def close_db(error):
 @app.route('/kuku1')
 def kuku1():  # put application's code here
     return 'sdfsdf!'
+@app.route('/kuku2')
+def kuku2():  # put application's code here
+    return 'sdfsdf!'
+
 
 @app.route('/update_server', methods=['POST', 'GET'])#hello
 def webhook():
