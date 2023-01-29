@@ -33,7 +33,7 @@ def close_db(error):
 
 
 
-@app.route('/kuku')
+@app.route('/kuku1')
 def hi():  # put application's code here
     return 'sdfsdf!'
 
