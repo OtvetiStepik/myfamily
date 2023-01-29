@@ -38,7 +38,7 @@ def kuku1():  # put application's code here
     return 'sdfsdf!'
 @app.route('/kuku2')
 def kuku2():  # put application's code here
-    return 'sdfsdf!'
+    return 'aaaa'
 
 
 @app.route('/update_server', methods=['POST', 'GET'])#hello
